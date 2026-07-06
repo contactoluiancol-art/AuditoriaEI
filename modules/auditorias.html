@@ -1,0 +1,224 @@
+
+<div class="module-container">
+
+  <!-- HEADER -->
+
+  <div class="module-header">
+
+    <div>
+
+      <h2>
+        📋 Auditorías
+      </h2>
+
+      <p>
+        Gestión y seguimiento de auditorías
+      </p>
+
+    </div>
+
+  </div>
+
+
+
+
+
+  <!-- FORMULARIO -->
+
+  <div class="module-card">
+
+    <div class="table-header">
+
+      <h3>
+        Nueva Auditoría
+      </h3>
+
+    </div>
+
+
+
+
+
+    <div class="form-grid">
+
+      <!-- PROCESO -->
+
+      <div class="input-group">
+
+        <label>
+          Proceso
+        </label>
+
+        <input
+          type="text"
+          id="procesoInput"
+          placeholder="Ingrese proceso"
+        >
+
+      </div>
+
+
+
+
+
+      <!-- RESPONSABLE -->
+
+      <div class="input-group">
+
+        <label>
+          Responsable
+        </label>
+
+        <input
+          type="text"
+          id="responsableInput"
+          placeholder="Ingrese responsable"
+        >
+
+      </div>
+
+
+
+
+
+      <!-- ESTADO -->
+
+      <div class="input-group">
+
+        <label>
+          Estado
+        </label>
+
+        <select id="estadoInput">
+
+          <option value="Pendiente">
+            Pendiente
+          </option>
+
+          <option value="En revisión">
+            En revisión
+          </option>
+
+          <option value="Cerrado">
+            Cerrado
+          </option>
+
+        </select>
+
+      </div>
+
+    </div>
+
+
+
+
+
+    <!-- HALLAZGO -->
+
+    <div class="input-group textarea-group">
+
+      <label>
+        Hallazgo
+      </label>
+
+      <textarea
+        id="hallazgoInput"
+        rows="4"
+        placeholder="Ingrese hallazgo de auditoría"
+      ></textarea>
+
+    </div>
+
+
+
+
+
+    <!-- BOTONES -->
+
+    <div class="button-group">
+
+      <button
+        id="guardarAuditoria"
+        class="btn-primary"
+      >
+
+        Guardar Auditoría
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+
+
+
+  <!-- TABLA -->
+
+  <div class="module-card">
+
+    <div class="table-header">
+
+      <h3>
+        Auditorías Registradas
+      </h3>
+
+    </div>
+
+
+
+
+
+    <div class="table-container">
+
+      <table class="table-pro">
+
+        <thead>
+
+          <tr>
+
+            <th style="width: 12%;">
+              Proceso
+            </th>
+
+            <th style="width: 38%;">
+              Hallazgo
+            </th>
+
+            <th style="width: 12%;">
+              Responsable
+            </th>
+
+            <th style="width: 12%;">
+              Estado
+            </th>
+
+            <th style="width: 14%;">
+              Fecha
+            </th>
+
+            <th style="width: 12%;">
+              Acciones
+            </th>
+
+          </tr>
+
+        </thead>
+
+
+
+
+
+        <tbody id="auditoriasBody">
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>
+
