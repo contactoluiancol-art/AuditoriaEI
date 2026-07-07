@@ -1482,12 +1482,11 @@ window.cerrarModalNovedad = function(){
 // ABRIR SIESA
 // =====================================
 
-window.abrirSiesa = function(){
-
-  alert(
-    'https://siesaerp05.siesacloud.com/~~App12/'
-  );
-
+window.abrirSiesa = function () {
+    window.open(
+        "https://siesaerp05.siesacloud.com/~~App12/",
+        "_blank"
+    );
 };
 
 // =====================================
