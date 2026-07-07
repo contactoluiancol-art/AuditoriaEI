@@ -1,6 +1,13 @@
 // =====================================
 // BI DASHBOARD
 // =====================================
+// Envuelto en IIFE por la misma razón que confiabilidad.js:
+// este script se recarga cada vez que se entra al módulo BI,
+// y "let" a nivel global choca con la carga anterior
+// ("Identifier ... has already been declared"), deteniendo
+// la ejecución y dejando el módulo sin funcionar al volver.
+// =====================================
+(function(){
 
 let datosExcel = [];
 let grafico = null;
@@ -333,3 +340,5 @@ function crearGrafico(
         });
 
 }
+
+})();

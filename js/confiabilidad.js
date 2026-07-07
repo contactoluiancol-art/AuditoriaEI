@@ -2,6 +2,23 @@
 // EI AUDITORÍA ERP
 // MÓDULO CONFIABILIDAD DE INVENTARIO 
 //==========================================================
+//==========================================================
+// IIFE (FUNCIÓN AUTOEJECUTABLE)
+// -----------------------------------------------------------
+// Este módulo se recarga dinámicamente cada vez que el
+// usuario entra a "Confiabilidad" (dashboard.js quita el
+// <script> anterior y agrega uno nuevo). Si "const ICONOS"
+// y "class ConfiabilidadInventario" quedan declarados en el
+// scope global, la SEGUNDA vez que se carga el script el
+// navegador lanza "Identifier ... has already been declared"
+// y el archivo completo deja de ejecutarse: por eso el
+// módulo "se ponía en cero" al volver a entrar, aunque los
+// datos seguían guardados en localStorage.
+// Envolviendo todo en esta función, cada recarga usa su
+// propio scope aislado y el script puede ejecutarse las
+// veces que sea necesario sin choques.
+//==========================================================
+(function(){
 "use strict";
 
 //==========================================================
@@ -1535,5 +1552,17 @@ editarAnalisis(indice){
 //======================================================
 // INICIALIZAR MÓDULO
 //======================================================
+// Al reinstanciar, this.state.analisis vuelve a leer de
+// localStorage en el constructor, por lo que el historial,
+// KPIs e indicadores quedan igual a como se dejaron,
+// aunque el usuario haya navegado a otro módulo o haya
+// refrescado la página completa.
+//======================================================
+
 window.confiabilidad = new ConfiabilidadInventario();
+
+//==========================================================
+// FIN IIFE
+//==========================================================
+})();
 
