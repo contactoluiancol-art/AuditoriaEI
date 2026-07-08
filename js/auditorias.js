@@ -674,27 +674,39 @@ window.renderAuditorias = async function () {
 
 window.verDocumentos = async function(id){
 
+    console.log("========== VER DOCUMENTOS ==========");
+    console.log("ID Auditoría:", id);
+
     try{
 
         const modal =
-
-        document.getElementById(
-
-            "modalDocumentos"
-
-        );
+        document.getElementById("modalDocumentos");
 
         const lista =
+        document.getElementById("listaDocumentosModal");
 
-        document.getElementById(
+        console.log("Modal:", modal);
+        console.log("Lista:", lista);
 
-            "listaDocumentosModal"
+        if(!modal){
 
-        );
+            console.error("No existe #modalDocumentos");
 
-        lista.innerHTML="";
+            return;
 
-        const {data,error}=
+        }
+
+        if(!lista){
+
+            console.error("No existe #listaDocumentosModal");
+
+            return;
+
+        }
+
+        lista.innerHTML = "";
+
+        const { data, error } =
 
         await window.supabaseClient
 
@@ -702,94 +714,95 @@ window.verDocumentos = async function(id){
 
         .select("*")
 
-        .eq(
+        .eq("auditoria_id", id)
 
-            "auditoria_id",
+        .order("id");
 
-            id
+        console.log("Respuesta Supabase:", data);
 
-        )
-
-        .order(
-
-            "id"
-
-        );
+        console.log("Error:", error);
 
         if(error){
 
-            console.log(error);
+            console.error(error);
+
+            alert("Error consultando documentos.");
 
             return;
 
         }
 
-if(!data || data.length === 0){
+        if(!data || data.length === 0){
 
-    lista.innerHTML = "<p>No existen documentos.</p>";
+            lista.innerHTML = `
 
-    if(modal){
+                <p style="text-align:center;padding:20px;">
 
-        modal.classList.add("active");
+                    No existen documentos para esta auditoría.
 
-    }
+                </p>
 
-    return;
+            `;
 
-}
+            console.log("Abriendo modal sin documentos...");
+
+            modal.classList.add("active");
+
+            return;
+
+        }
+
         data.forEach(function(doc){
 
-            lista.innerHTML+=`
+            lista.innerHTML += `
 
-            <div class="documento-storage">
+                <div class="documento-storage">
 
-                <div>
+                    <div>
 
-                    <strong>
+                        <strong>
 
-                    📄 ${doc.nombre_archivo}
+                            📄 ${doc.nombre_archivo}
 
-                    </strong>
+                        </strong>
 
-                    <br>
+                        <br>
 
-                    ${doc.tipo_archivo}
+                        ${doc.tipo_archivo}
+
+                    </div>
+
+                    <div>
+
+                        <button
+
+                            class="btn-primary"
+
+                            onclick="descargarDocumento('${doc.ruta_storage}')"
+
+                        >
+
+                            Descargar
+
+                        </button>
+
+                    </div>
 
                 </div>
-
-                <div>
-
-                    <button
-
-                        class="btn-primary"
-
-                        onclick="descargarDocumento('${doc.ruta_storage}')"
-
-                    >
-
-                        Descargar
-
-                    </button>
-
-                </div>
-
-            </div>
 
             `;
 
         });
 
-      if(modal){
+        console.log("Abriendo modal con documentos...");
 
-    modal.classList.add("active");
-
-}
+        modal.classList.add("active");
 
     }
 
     catch(error){
 
-        console.log(error);
+        console.error("Error inesperado:", error);
 
     }
 
