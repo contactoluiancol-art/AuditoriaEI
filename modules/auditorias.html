@@ -230,57 +230,69 @@
          HISTORIAL
     =========================================== -->
 
-    <div class="module-card">
+  <div class="module-card">
 
-        <div class="table-header">
+    <div class="table-header">
 
-           <div>
+        <div>
 
-    <h3>Historial de Auditorías</h3>
+            <h3>Historial de Auditorías</h3>
 
-    <p class="section-description">
+            <p class="section-description">
 
-        Auditorías registradas en el sistema.
+                Consulte, gestione y descargue la información de las auditorías registradas.
 
-    </p>
-
-</div>
+            </p>
 
         </div>
 
-        <div class="table-container">
+        <div class="table-tools">
 
-            <table class="table-pro">
+            <input
 
-                <thead>
+                type="text"
 
-                    <tr>
+                id="buscarAuditoria"
 
-                        <th style="width:10%">Tipo</th>
+                class="input-search"
 
-                        <th style="width:24%">Nombre</th>
+                placeholder="Buscar auditoría..."
 
-                        <th style="width:18%">Proceso / Referencia</th>
-
-                        <th style="width:14%">Responsable</th>
-
-                        <th style="width:10%">Estado</th>
-
-                        <th style="width:10%">Fecha</th>
-
-                        <th style="width:14%">Acciones</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody id="auditoriasBody">
-
-                </tbody>
-
-            </table>
+            >
 
         </div>
+
+    </div>
+
+    <div class="table-container">
+
+        <table class="table-pro">
+
+            <thead>
+
+                <tr>
+
+                    <th>Tipo</th>
+
+                    <th>Auditoría</th>
+
+                    <th>Responsable</th>
+
+                    <th>Estado</th>
+
+                    <th>Fecha</th>
+
+                    <th style="text-align:center;">Acciones</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="auditoriasBody">
+
+            </tbody>
+
+        </table>
 
     </div>
 
