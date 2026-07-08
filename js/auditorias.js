@@ -1168,3 +1168,40 @@ ${data.observaciones || "Sin observaciones."}`
     }
 
 };
+// ==========================================
+// INICIALIZAR MÓDULO
+// ==========================================
+
+window.iniciarRefreshAuditorias = function(){
+
+    if(window.refreshAuditoriasInterval){
+
+        clearInterval(window.refreshAuditoriasInterval);
+
+    }
+
+    window.refreshAuditoriasInterval = setInterval(function(){
+
+        if(document.getElementById("auditoriasBody")){
+
+            window.renderAuditorias();
+
+        }
+
+    },5000);
+
+};
+
+(function(){
+
+    aplicarPermisosAuditorias();
+
+    cargarFechaActual();
+
+    renderDocumentos();
+
+    window.renderAuditorias();
+
+    window.iniciarRefreshAuditorias();
+
+})();
