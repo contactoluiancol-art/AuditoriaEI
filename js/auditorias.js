@@ -1064,30 +1064,17 @@ window.descargarDocumento = async function(ruta){
 
 }
 const cerrarModalDocumentos =
-document.getElementById(
-    "cerrarModalDocumentos"
-);
-
+document.getElementById("cerrarModalDocumentos");
 
 if(cerrarModalDocumentos){
 
-    cerrarModalDocumentos.onclick=function(){
+    cerrarModalDocumentos.onclick = function(){
 
         document
+            .getElementById("modalDocumentos")
+            .classList.remove("active");
 
-        .getElementById(
-
-            "modalDocumentos"
-
-        )
-
-        .classList.remove(
-
-            "active"
-
-        );
-
-    }
+    };
 
 }
 
