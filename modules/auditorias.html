@@ -276,12 +276,8 @@
                         <th style="width:12%;">
                             Fecha
                         </th>
-
-                        <th style="width:8%;">
-                            Docs
-                        </th>
-
-                        <th style="width:8%;">
+                        
+                        <th style="width:14%;">
                             Acciones
                         </th>
 
@@ -304,18 +300,21 @@
 <!-- =========================
      MODAL DOCUMENTOS
 ========================= -->
+<!-- =========================
+     MODAL DETALLE AUDITORÍA
+========================= -->
 
-<div id="modalDocumentos" class="modal-documentos">
+<div id="modalDetalleAuditoria" class="modal-documentos">
 
-    <div class="modal-documentos-content">
+    <div class="modal-documentos-content modal-detalle">
 
         <div class="modal-header">
 
-            <h3>Documentos de la Auditoría</h3>
+            <h3>Detalle de la Auditoría</h3>
 
             <button
-                id="cerrarModalDocumentos"
-                class="btn-eliminar"
+                id="cerrarDetalleAuditoria"
+                class="btn-cerrar-modal"
                 type="button"
             >
                 ✕
@@ -323,10 +322,76 @@
 
         </div>
 
-        <div id="listaDocumentosModal">
+        <div class="detalle-grid">
+
+            <div class="detalle-item">
+
+                <label>Tipo</label>
+
+                <span id="detalleTipo"></span>
+
+            </div>
+
+            <div class="detalle-item">
+
+                <label>Estado</label>
+
+                <span id="detalleEstado"></span>
+
+            </div>
+
+            <div class="detalle-item">
+
+                <label>Nombre</label>
+
+                <span id="detalleNombre"></span>
+
+            </div>
+
+            <div class="detalle-item">
+
+                <label>Responsable</label>
+
+                <span id="detalleResponsable"></span>
+
+            </div>
+
+            <div class="detalle-item">
+
+                <label>Proceso</label>
+
+                <span id="detalleProceso"></span>
+
+            </div>
+
+            <div class="detalle-item">
+
+                <label>Fecha</label>
+
+                <span id="detalleFecha"></span>
+
+            </div>
+
+        </div>
+
+        <div class="detalle-observaciones">
+
+            <h4>Observaciones</h4>
+
+            <div id="detalleObservaciones"></div>
+
+        </div>
+
+        <div class="detalle-documentos">
+
+            <h4>Documentos Adjuntos</h4>
+
+            <div id="detalleDocumentos"></div>
 
         </div>
 
     </div>
+
+</div>
 
 </div>
