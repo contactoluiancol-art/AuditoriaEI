@@ -591,30 +591,6 @@ window.renderAuditorias = async function () {
 
                 <td>
 
-                    <button
-
-                        class="btn-primary"
-
-                        style="padding:8px 12px"
-
-                        onclick="verDocumentos(${item.id})"
-
-                    >
-
-                        📁
-
-                    </button>
-
-                </td>
-
-                <td>
-
-                    <div class="acciones-tabla">
-
-                        ${window.tienePermiso("auditorias","editar") ?
-
-                        `
-
                         <button
 
     class="btn-ver"
