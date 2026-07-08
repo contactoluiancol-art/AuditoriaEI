@@ -617,6 +617,20 @@ window.renderAuditorias = async function () {
 
                         <button
 
+    class="btn-ver"
+
+    onclick="verDetalleAuditoria(${item.id})"
+
+    title="Ver detalle"
+
+>
+
+    👁️
+
+</button>
+
+                        <button
+
                             class="btn-editar"
 
                             onclick="editarEstado(${item.id})"
