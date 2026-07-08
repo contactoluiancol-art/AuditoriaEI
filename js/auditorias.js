@@ -965,57 +965,6 @@ window.editarEstado = async function (id) {
 
 };
 
-// ==========================================
-// PARTE 3
-// Inicialización
-// Permisos
-// Refresh
-// ==========================================
-
-// ============================
-// REFRESH
-// ============================
-
-window.iniciarRefreshAuditorias = function () {
-
-    if (window.refreshAuditoriasInterval) {
-
-        clearInterval(window.refreshAuditoriasInterval);
-
-    }
-
-    window.refreshAuditoriasInterval =
-
-    setInterval(async function () {
-
-        try {
-
-            const body =
-
-            document.getElementById("auditoriasBody");
-
-            if (!body) return;
-
-            await window.renderAuditorias();
-
-        }
-
-        catch (error) {
-
-            console.log(
-
-                "Refresh Auditorías:",
-
-                error
-
-            );
-
-        }
-
-    }, 3000);
-
-};
-
 // ============================
 // PERMISOS
 // ============================
@@ -1156,22 +1105,5 @@ if(cerrarModalDocumentos){
     }
 
 }
-// ============================
-// INICIO
-// ============================
-
-(function iniciarModuloAuditorias() {
-
-    aplicarPermisosAuditorias();
-
-    cargarFechaActual();
-
-    renderDocumentos();
-
-    window.renderAuditorias();
-
-    window.iniciarRefreshAuditorias();
-
-})();
 
 
