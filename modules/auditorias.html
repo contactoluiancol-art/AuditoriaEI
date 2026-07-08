@@ -1,224 +1,302 @@
-
 <div class="module-container">
 
-  <!-- HEADER -->
+    <!-- =========================
+         HEADER
+    ========================== -->
 
-  <div class="module-header">
+    <div class="module-header">
 
-    <div>
+        <div>
 
-      <h2>
-        📋 Auditorías
-      </h2>
+            <h2>📋 Auditorías</h2>
 
-      <p>
-        Gestión y seguimiento de auditorías
-      </p>
+            <p>
+                Historial documental de auditorías realizadas.
+            </p>
 
-    </div>
-
-  </div>
-
-
-
-
-
-  <!-- FORMULARIO -->
-
-  <div class="module-card">
-
-    <div class="table-header">
-
-      <h3>
-        Nueva Auditoría
-      </h3>
+        </div>
 
     </div>
 
+    <!-- =========================
+         FORMULARIO
+    ========================== -->
 
+    <div class="module-card">
 
+        <div class="table-header">
 
+            <h3>Registrar Auditoría</h3>
 
-    <div class="form-grid">
+        </div>
 
-      <!-- PROCESO -->
+        <div class="form-grid">
 
-      <div class="input-group">
+            <!-- Tipo -->
 
-        <label>
-          Proceso
-        </label>
+            <div class="input-group">
 
-        <input
-          type="text"
-          id="procesoInput"
-          placeholder="Ingrese proceso"
-        >
+                <label>Tipo de Auditoría</label>
 
-      </div>
+                <select id="tipoInput">
 
+                    <option value="">Seleccione</option>
 
+                    <option value="Inventario">Inventario</option>
 
+                    <option value="Recepciones">Recepciones</option>
 
+                    <option value="Compras">Compras</option>
 
-      <!-- RESPONSABLE -->
+                    <option value="Despachos">Despachos</option>
 
-      <div class="input-group">
+                    <option value="Ventas">Ventas</option>
 
-        <label>
-          Responsable
-        </label>
+                </select>
 
-        <input
-          type="text"
-          id="responsableInput"
-          placeholder="Ingrese responsable"
-        >
+            </div>
 
-      </div>
+            <!-- Nombre -->
 
+            <div class="input-group">
 
+                <label>Nombre de la Auditoría</label>
 
+                <input
+                    type="text"
+                    id="nombreInput"
+                    placeholder="Ej: Inventario General Julio 2026"
+                >
 
+            </div>
 
-      <!-- ESTADO -->
+            <!-- Responsable -->
 
-      <div class="input-group">
+            <div class="input-group">
 
-        <label>
-          Estado
-        </label>
+                <label>Responsable</label>
 
-        <select id="estadoInput">
+                <input
+                    type="text"
+                    id="responsableInput"
+                    placeholder="Ingrese responsable"
+                >
 
-          <option value="Pendiente">
-            Pendiente
-          </option>
+            </div>
 
-          <option value="En revisión">
-            En revisión
-          </option>
+            <!-- Proceso -->
 
-          <option value="Cerrado">
-            Cerrado
-          </option>
+            <div class="input-group">
 
-        </select>
+                <label>Proceso / Referencia</label>
 
-      </div>
+                <input
+                    type="text"
+                    id="procesoInput"
+                    placeholder="Ej: Bodega Principal, OC-1254..."
+                >
+
+            </div>
+
+            <!-- Estado -->
+
+            <div class="input-group">
+
+                <label>Estado</label>
+
+                <select id="estadoInput">
+
+                    <option value="Pendiente">Pendiente</option>
+
+                    <option value="En proceso">En proceso</option>
+
+                    <option value="Finalizada">Finalizada</option>
+
+                </select>
+
+            </div>
+
+            <!-- Fecha -->
+
+            <div class="input-group">
+
+                <label>Fecha Auditoría</label>
+
+                <input
+                    type="date"
+                    id="fechaInput"
+                >
+
+            </div>
+
+        </div>
+
+        <!-- Observaciones -->
+
+        <div class="input-group textarea-group">
+
+            <label>Observaciones</label>
+
+            <textarea
+
+                id="observacionesInput"
+
+                rows="4"
+
+                placeholder="Observaciones generales de la auditoría"
+
+            ></textarea>
+
+        </div>
 
     </div>
 
+    <!-- =========================
+         DOCUMENTOS
+    ========================== -->
 
+    <div class="module-card">
 
+        <div class="table-header">
 
+            <h3>Documentos de la Auditoría</h3>
 
-    <!-- HALLAZGO -->
+        </div>
 
-    <div class="input-group textarea-group">
+        <div class="documentos-container">
 
-      <label>
-        Hallazgo
-      </label>
+            <!-- Lista dinámica -->
 
-      <textarea
-        id="hallazgoInput"
-        rows="4"
-        placeholder="Ingrese hallazgo de auditoría"
-      ></textarea>
+            <div id="listaDocumentos">
+
+                <div class="documento-vacio">
+
+                    📄 Ningún documento agregado.
+
+                </div>
+
+            </div>
+
+            <div class="button-group">
+
+                <input
+
+                    type="file"
+
+                    id="documentoInput"
+
+                    accept=".xlsx,.xls,.pdf"
+
+                    multiple
+
+                    hidden
+
+                >
+
+                <button
+
+                    id="btnAgregarDocumento"
+
+                    type="button"
+
+                    class="btn-secondary"
+
+                >
+
+                    + Agregar Documento
+
+                </button>
+
+            </div>
+
+        </div>
 
     </div>
 
-
-
-
-
-    <!-- BOTONES -->
+    <!-- =========================
+         BOTÓN GUARDAR
+    ========================== -->
 
     <div class="button-group">
 
-      <button
-        id="guardarAuditoria"
-        class="btn-primary"
-      >
+        <button
 
-        Guardar Auditoría
+            id="guardarAuditoria"
 
-      </button>
+            class="btn-primary"
 
-    </div>
+        >
 
-  </div>
+            Guardar Auditoría
 
-
-
-
-
-  <!-- TABLA -->
-
-  <div class="module-card">
-
-    <div class="table-header">
-
-      <h3>
-        Auditorías Registradas
-      </h3>
+        </button>
 
     </div>
 
+    <!-- =========================
+         HISTORIAL
+    ========================== -->
 
+    <div class="module-card">
 
+        <div class="table-header">
 
+            <h3>Historial de Auditorías</h3>
 
-    <div class="table-container">
+        </div>
 
-      <table class="table-pro">
+        <div class="table-container">
 
-        <thead>
+            <table class="table-pro">
 
-          <tr>
+                <thead>
 
-            <th style="width: 12%;">
-              Proceso
-            </th>
+                    <tr>
 
-            <th style="width: 38%;">
-              Hallazgo
-            </th>
+                        <th style="width:10%;">
+                            Tipo
+                        </th>
 
-            <th style="width: 12%;">
-              Responsable
-            </th>
+                        <th style="width:22%;">
+                            Nombre
+                        </th>
 
-            <th style="width: 12%;">
-              Estado
-            </th>
+                        <th style="width:18%;">
+                            Proceso / Referencia
+                        </th>
 
-            <th style="width: 14%;">
-              Fecha
-            </th>
+                        <th style="width:12%;">
+                            Responsable
+                        </th>
 
-            <th style="width: 12%;">
-              Acciones
-            </th>
+                        <th style="width:10%;">
+                            Estado
+                        </th>
 
-          </tr>
+                        <th style="width:12%;">
+                            Fecha
+                        </th>
 
-        </thead>
+                        <th style="width:8%;">
+                            Docs
+                        </th>
 
+                        <th style="width:8%;">
+                            Acciones
+                        </th>
 
+                    </tr>
 
+                </thead>
 
+                <tbody id="auditoriasBody">
 
-        <tbody id="auditoriasBody">
+                </tbody>
 
-        </tbody>
+            </table>
 
-      </table>
+        </div>
 
     </div>
-
-  </div>
 
 </div>
-
