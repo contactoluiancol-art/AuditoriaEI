@@ -1121,3 +1121,70 @@ if(cerrarModalDocumentos){
 }
 
 
+// ============================
+// VER DETALLE AUDITORÍA
+// ============================
+
+window.verDetalleAuditoria = async function(id){
+
+    try{
+
+        const { data, error } = await window.supabaseClient
+
+            .from("auditorias")
+
+            .select("*")
+
+            .eq("id", id)
+
+            .single();
+
+        if(error){
+
+            console.error(error);
+
+            alert("No fue posible cargar la auditoría.");
+
+            return;
+
+        }
+
+        alert(
+
+`DETALLE DE LA AUDITORÍA
+
+Tipo:
+${data.tipo}
+
+Nombre:
+${data.nombre}
+
+Proceso:
+${data.proceso}
+
+Responsable:
+${data.responsable}
+
+Estado:
+${data.estado}
+
+Fecha:
+${new Date(data.fecha).toLocaleDateString("es-CO")}
+
+Observaciones:
+
+${data.observaciones || "Sin observaciones."}`
+
+        );
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        alert("Ocurrió un error.");
+
+    }
+
+};
