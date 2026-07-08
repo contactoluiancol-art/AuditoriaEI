@@ -487,7 +487,7 @@ window.renderAuditorias = async function () {
 
         if (error) {
 
-            console.log(error);
+            console.error(error);
 
             return;
 
@@ -499,7 +499,7 @@ window.renderAuditorias = async function () {
 
                 <tr>
 
-                    <td colspan="8">
+                    <td colspan="7" style="text-align:center;padding:30px;">
 
                         No existen auditorías registradas.
 
@@ -515,11 +515,11 @@ window.renderAuditorias = async function () {
 
         let html = "";
 
-        data.forEach(function (item) {
+        data.forEach(function(item){
 
             let estadoClass = "";
 
-            switch (item.estado) {
+            switch(item.estado){
 
                 case "Pendiente":
 
@@ -547,101 +547,105 @@ window.renderAuditorias = async function () {
 
             html += `
 
-            <tr>
+                <tr>
 
-                <td>
+                    <td>${item.tipo}</td>
 
-                    ${item.tipo}
+                    <td>${item.nombre}</td>
 
-                </td>
+                    <td>${item.proceso}</td>
 
-                <td>
+                    <td>${item.responsable}</td>
 
-                    ${item.nombre}
+                    <td>
 
-                </td>
+                        <span class="${estadoClass}">
 
-                <td>
+                            ${item.estado}
 
-                    ${item.proceso}
+                        </span>
 
-                </td>
+                    </td>
 
-                <td>
+                    <td>
 
-                    ${item.responsable}
+                        ${new Date(item.fecha).toLocaleDateString("es-CO")}
 
-                </td>
+                    </td>
 
-                <td>
+                    <td>
 
-                    <span class="${estadoClass}">
+                        <div class="acciones-tabla">
 
-                        ${item.estado}
+                            ${window.tienePermiso("auditorias","editar") ? `
 
-                    </span>
+                                <button
 
-                </td>
+                                    class="btn-ver"
 
-                <td>
+                                    title="Ver detalle"
 
-                    ${new Date(item.fecha).toLocaleDateString("es-CO")}
+                                    onclick="verDetalleAuditoria(${item.id})"
 
-                </td>
+                                >
 
-                <td>
+                                    👁️
 
-                        <button
+                                </button>
 
-    class="btn-ver"
+                                <button
 
-    onclick="verDetalleAuditoria(${item.id})"
+                                    class="btn-primary"
 
-    title="Ver detalle"
+                                    title="Documentos"
 
->
+                                    onclick="verDocumentos(${item.id})"
 
-    👁️
+                                >
 
-</button>
+                                    📁
 
-                        <button
+                                </button>
 
-                            class="btn-editar"
+                                <button
 
-                            onclick="editarEstado(${item.id})"
+                                    class="btn-editar"
 
-                        >
+                                    title="Editar"
 
-                            ✏️
+                                    onclick="editarEstado(${item.id})"
 
-                        </button>
+                                >
 
-                        ` : ""}
+                                    ✏️
 
-                        ${window.tienePermiso("auditorias","eliminar") ?
+                                </button>
 
-                        `
+                            ` : ""}
 
-                        <button
+                            ${window.tienePermiso("auditorias","eliminar") ? `
 
-                            class="btn-eliminar"
+                                <button
 
-                            onclick="eliminarAuditoria(${item.id})"
+                                    class="btn-eliminar"
 
-                        >
+                                    title="Eliminar"
 
-                            🗑️
+                                    onclick="eliminarAuditoria(${item.id})"
 
-                        </button>
+                                >
 
-                        ` : ""}
+                                    🗑️
 
-                    </div>
+                                </button>
 
-                </td>
+                            ` : ""}
 
-            </tr>
+                        </div>
+
+                    </td>
+
+                </tr>
 
             `;
 
@@ -651,9 +655,9 @@ window.renderAuditorias = async function () {
 
     }
 
-    catch (error) {
+    catch(error){
 
-        console.log(error);
+        console.error(error);
 
     }
 
