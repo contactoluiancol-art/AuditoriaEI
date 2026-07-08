@@ -1,8 +1,8 @@
 <div class="module-container">
 
-    <!-- =========================
+    <!-- ==========================================
          HEADER
-    ========================== -->
+    =========================================== -->
 
     <div class="module-header">
 
@@ -10,17 +10,15 @@
 
             <h2>📋 Auditorías</h2>
 
-            <p>
-                Historial documental de auditorías realizadas.
-            </p>
+            <p>Historial documental de auditorías realizadas.</p>
 
         </div>
 
     </div>
 
-    <!-- =========================
+    <!-- ==========================================
          FORMULARIO
-    ========================== -->
+    =========================================== -->
 
     <div class="module-card">
 
@@ -32,8 +30,6 @@
 
         <div class="form-grid">
 
-            <!-- Tipo -->
-
             <div class="input-group">
 
                 <label>Tipo de Auditoría</label>
@@ -41,22 +37,15 @@
                 <select id="tipoInput">
 
                     <option value="">Seleccione</option>
-
                     <option value="Inventario">Inventario</option>
-
                     <option value="Recepciones">Recepciones</option>
-
                     <option value="Compras">Compras</option>
-
                     <option value="Despachos">Despachos</option>
-
                     <option value="Ventas">Ventas</option>
 
                 </select>
 
             </div>
-
-            <!-- Nombre -->
 
             <div class="input-group">
 
@@ -70,8 +59,6 @@
 
             </div>
 
-            <!-- Responsable -->
-
             <div class="input-group">
 
                 <label>Responsable</label>
@@ -83,8 +70,6 @@
                 >
 
             </div>
-
-            <!-- Proceso -->
 
             <div class="input-group">
 
@@ -98,8 +83,6 @@
 
             </div>
 
-            <!-- Estado -->
-
             <div class="input-group">
 
                 <label>Estado</label>
@@ -107,16 +90,12 @@
                 <select id="estadoInput">
 
                     <option value="Pendiente">Pendiente</option>
-
                     <option value="En proceso">En proceso</option>
-
                     <option value="Finalizada">Finalizada</option>
 
                 </select>
 
             </div>
-
-            <!-- Fecha -->
 
             <div class="input-group">
 
@@ -130,8 +109,6 @@
             </div>
 
         </div>
-
-        <!-- Observaciones -->
 
         <div class="input-group textarea-group">
 
@@ -151,9 +128,9 @@
 
     </div>
 
-    <!-- =========================
+    <!-- ==========================================
          DOCUMENTOS
-    ========================== -->
+    =========================================== -->
 
     <div class="module-card">
 
@@ -164,8 +141,6 @@
         </div>
 
         <div class="documentos-container">
-
-            <!-- Lista dinámica -->
 
             <div id="listaDocumentos">
 
@@ -213,9 +188,9 @@
 
     </div>
 
-    <!-- =========================
+    <!-- ==========================================
          BOTÓN GUARDAR
-    ========================== -->
+    =========================================== -->
 
     <div class="button-group">
 
@@ -233,9 +208,9 @@
 
     </div>
 
-    <!-- =========================
+    <!-- ==========================================
          HISTORIAL
-    ========================== -->
+    =========================================== -->
 
     <div class="module-card">
 
@@ -253,33 +228,19 @@
 
                     <tr>
 
-                        <th style="width:10%;">
-                            Tipo
-                        </th>
+                        <th style="width:10%">Tipo</th>
 
-                        <th style="width:22%;">
-                            Nombre
-                        </th>
+                        <th style="width:24%">Nombre</th>
 
-                        <th style="width:18%;">
-                            Proceso / Referencia
-                        </th>
+                        <th style="width:18%">Proceso / Referencia</th>
 
-                        <th style="width:12%;">
-                            Responsable
-                        </th>
+                        <th style="width:14%">Responsable</th>
 
-                        <th style="width:10%;">
-                            Estado
-                        </th>
+                        <th style="width:10%">Estado</th>
 
-                        <th style="width:12%;">
-                            Fecha
-                        </th>
-                        
-                        <th style="width:14%;">
-                            Acciones
-                        </th>
+                        <th style="width:10%">Fecha</th>
+
+                        <th style="width:14%">Acciones</th>
 
                     </tr>
 
@@ -297,12 +258,9 @@
 
 </div>
 
-<!-- =========================
-     MODAL DOCUMENTOS
-========================= -->
-<!-- =========================
+<!-- ==========================================
      MODAL DETALLE AUDITORÍA
-========================= -->
+=========================================== -->
 
 <div id="modalDetalleAuditoria" class="modal-documentos">
 
@@ -313,11 +271,17 @@
             <h3>Detalle de la Auditoría</h3>
 
             <button
+
                 id="cerrarDetalleAuditoria"
+
                 class="btn-cerrar-modal"
+
                 type="button"
+
             >
+
                 ✕
+
             </button>
 
         </div>
@@ -391,7 +355,5 @@
         </div>
 
     </div>
-
-</div>
 
 </div>
