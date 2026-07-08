@@ -1087,6 +1087,17 @@ window.verDetalleAuditoria = async function(id){
 
     try{
 
+        const modal =
+        document.getElementById("modalDetalleAuditoria");
+
+        if(!modal){
+
+            console.error("No existe #modalDetalleAuditoria");
+
+            return;
+
+        }
+
         const { data, error } = await window.supabaseClient
 
             .from("auditorias")
@@ -1107,33 +1118,78 @@ window.verDetalleAuditoria = async function(id){
 
         }
 
-        alert(
+        const setText = function(elId, valor){
 
-`DETALLE DE LA AUDITORÍA
+            const el = document.getElementById(elId);
 
-Tipo:
-${data.tipo}
+            if(el) el.textContent = valor;
 
-Nombre:
-${data.nombre}
+        };
 
-Proceso:
-${data.proceso}
+        setText("detalleTipo", data.tipo || "-");
+        setText("detalleEstado", data.estado || "-");
+        setText("detalleNombre", data.nombre || "-");
+        setText("detalleResponsable", data.responsable || "-");
+        setText("detalleProceso", data.proceso || "-");
 
-Responsable:
-${data.responsable}
-
-Estado:
-${data.estado}
-
-Fecha:
-${new Date(data.fecha).toLocaleDateString("es-CO")}
-
-Observaciones:
-
-${data.observaciones || "Sin observaciones."}`
-
+        setText(
+            "detalleFecha",
+            data.fecha ? new Date(data.fecha).toLocaleDateString("es-CO") : "-"
         );
+
+        const estadoEl = document.getElementById("detalleEstado");
+
+        if(estadoEl){
+
+            estadoEl.className = "";
+
+            switch(data.estado){
+
+                case "Pendiente":
+                    estadoEl.classList.add("estado-pendiente");
+                    break;
+
+                case "En proceso":
+                    estadoEl.classList.add("estado-proceso");
+                    break;
+
+                case "Finalizada":
+                    estadoEl.classList.add("estado-finalizada");
+                    break;
+
+                default:
+                    estadoEl.classList.add("estado-pendiente");
+
+            }
+
+        }
+
+        const observacionesEl =
+        document.getElementById("detalleObservaciones");
+
+        if(observacionesEl){
+
+            observacionesEl.textContent =
+            data.observaciones && data.observaciones.trim() !== ""
+                ? data.observaciones
+                : "Sin observaciones registradas.";
+
+        }
+
+        const docsEl =
+        document.getElementById("detalleDocumentos");
+
+        if(docsEl){
+
+            docsEl.innerHTML = `
+                <div class="detalle-vacio">
+                    Abra "Documentos" en la tabla para ver los archivos adjuntos.
+                </div>
+            `;
+
+        }
+
+        modal.classList.add("active");
 
     }
 
@@ -1146,6 +1202,38 @@ ${data.observaciones || "Sin observaciones."}`
     }
 
 };
+
+const cerrarDetalleAuditoria =
+document.getElementById("cerrarDetalleAuditoria");
+
+if(cerrarDetalleAuditoria){
+
+    cerrarDetalleAuditoria.onclick = function(){
+
+        document
+            .getElementById("modalDetalleAuditoria")
+            .classList.remove("active");
+
+    };
+
+}
+
+const modalDetalleAuditoriaEl =
+document.getElementById("modalDetalleAuditoria");
+
+if(modalDetalleAuditoriaEl){
+
+    modalDetalleAuditoriaEl.addEventListener("click", function(e){
+
+        if(e.target === modalDetalleAuditoriaEl){
+
+            modalDetalleAuditoriaEl.classList.remove("active");
+
+        }
+
+    });
+
+}
 // ==========================================
 // INICIALIZAR MÓDULO
 // ==========================================
