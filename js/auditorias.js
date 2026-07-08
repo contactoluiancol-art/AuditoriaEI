@@ -1031,43 +1031,34 @@ window.descargarDocumento = async function(ruta){
 
     try{
 
-        const {data,error}=
+        console.log("================================");
+        console.log("Ruta recibida:", ruta);
 
-        await window.supabaseClient
+        const { data, error } = await window.supabaseClient
+            .storage
+            .from("auditorias")
+            .createSignedUrl(ruta, 60);
 
-        .storage
-
-        .from("auditorias")
-
-        .createSignedUrl(
-
-            ruta,
-
-            60
-
-        );
+        console.log("DATA:", data);
+        console.log("ERROR:", error);
 
         if(error){
 
-            console.log(error);
+            alert(error.message);
+
+            console.error(error);
 
             return;
 
         }
 
-        window.open(
-
-            data.signedUrl,
-
-            "_blank"
-
-        );
+        window.open(data.signedUrl, "_blank");
 
     }
 
     catch(error){
 
-        console.log(error);
+        console.error(error);
 
     }
 
