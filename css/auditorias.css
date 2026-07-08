@@ -166,3 +166,164 @@ tbody tr:hover{
   }
 
 }
+
+/*====================================
+=            TEXTAREA
+====================================*/
+
+.textarea-group{
+    margin-top:20px;
+}
+
+.textarea-group textarea{
+    width:100%;
+    min-height:120px;
+    border:1px solid #cbd5e1;
+    border-radius:14px;
+    padding:15px;
+    resize:vertical;
+    font-size:14px;
+    font-family:inherit;
+}
+
+.textarea-group textarea:focus{
+    outline:none;
+    border-color:#2563eb;
+}
+
+
+/*====================================
+=        DOCUMENTOS AUDITORÍA
+====================================*/
+
+.documentos-container{
+    margin-top:20px;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.documento-vacio{
+    border:2px dashed #cbd5e1;
+    border-radius:14px;
+    padding:30px;
+    text-align:center;
+    color:#64748b;
+    font-size:14px;
+    background:#f8fafc;
+}
+
+#listaDocumentos{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+
+/*====================================
+=     ITEM DOCUMENTO (FUTURO)
+====================================*/
+
+.documento-item{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:14px 18px;
+
+    border:1px solid #e2e8f0;
+
+    border-radius:14px;
+
+    background:white;
+
+}
+
+.documento-info{
+
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+
+}
+
+.documento-nombre{
+
+    font-weight:700;
+    color:#0f172a;
+
+}
+
+.documento-tipo{
+
+    font-size:13px;
+    color:#64748b;
+
+}
+
+.documento-acciones{
+
+    display:flex;
+    gap:10px;
+
+}
+
+
+/*====================================
+=         BOTÓN SECUNDARIO
+====================================*/
+
+.btn-secondary{
+
+    background:white;
+
+    color:#2563eb;
+
+    border:2px solid #2563eb;
+
+    border-radius:12px;
+
+    padding:12px 20px;
+
+    cursor:pointer;
+
+    font-weight:700;
+
+    transition:.25s;
+
+}
+
+.btn-secondary:hover{
+
+    background:#2563eb;
+
+    color:white;
+
+}
+
+
+/*====================================
+=       NUEVOS ESTADOS
+====================================*/
+
+.estado-pendiente{
+
+    background:#FEF3C7;
+    color:#92400E;
+
+}
+
+.estado-proceso{
+
+    background:#DBEAFE;
+    color:#1D4ED8;
+
+}
+
+.estado-finalizada{
+
+    background:#DCFCE7;
+    color:#166534;
+
+}
