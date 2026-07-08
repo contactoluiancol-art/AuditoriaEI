@@ -574,3 +574,57 @@ MODAL DOCUMENTOS PREMIUM
     0 10px 20px rgba(37,99,235,.35);
 
 }
+
+/*====================================
+=          BOTÓN VER
+====================================*/
+
+.btn-ver{
+
+    width:42px;
+
+    height:42px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:linear-gradient(
+        135deg,
+        #3B82F6,
+        #2563EB
+    );
+
+    color:#fff;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    transition:.25s;
+
+    box-shadow:
+    0 8px 18px rgba(37,99,235,.25);
+
+}
+
+.btn-ver:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+    0 12px 22px rgba(37,99,235,.35);
+
+}
+
+.btn-ver:active{
+
+    transform:scale(.95);
+
+}
