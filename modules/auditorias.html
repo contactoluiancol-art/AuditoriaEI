@@ -20,193 +20,211 @@
          FORMULARIO
     =========================================== -->
 
-    <div class="module-card">
+<div class="module-card">
 
-        <div class="table-header">
+    <div class="table-header">
+
+        <div>
 
             <h3>Registrar Auditoría</h3>
 
-        </div>
+            <p class="section-description">
 
-        <div class="form-grid">
+                Registre la información general de la auditoría.
 
-            <div class="input-group">
-
-                <label>Tipo de Auditoría</label>
-
-                <select id="tipoInput">
-
-                    <option value="">Seleccione</option>
-                    <option value="Inventario">Inventario</option>
-                    <option value="Recepciones">Recepciones</option>
-                    <option value="Compras">Compras</option>
-                    <option value="Despachos">Despachos</option>
-                    <option value="Ventas">Ventas</option>
-
-                </select>
-
-            </div>
-
-            <div class="input-group">
-
-                <label>Nombre de la Auditoría</label>
-
-                <input
-                    type="text"
-                    id="nombreInput"
-                    placeholder="Ej: Inventario General Julio 2026"
-                >
-
-            </div>
-
-            <div class="input-group">
-
-                <label>Responsable</label>
-
-                <input
-                    type="text"
-                    id="responsableInput"
-                    placeholder="Ingrese responsable"
-                >
-
-            </div>
-
-            <div class="input-group">
-
-                <label>Proceso / Referencia</label>
-
-                <input
-                    type="text"
-                    id="procesoInput"
-                    placeholder="Ej: Bodega Principal, OC-1254..."
-                >
-
-            </div>
-
-            <div class="input-group">
-
-                <label>Estado</label>
-
-                <select id="estadoInput">
-
-                    <option value="Pendiente">Pendiente</option>
-                    <option value="En proceso">En proceso</option>
-                    <option value="Finalizada">Finalizada</option>
-
-                </select>
-
-            </div>
-
-            <div class="input-group">
-
-                <label>Fecha Auditoría</label>
-
-                <input
-                    type="date"
-                    id="fechaInput"
-                >
-
-            </div>
-
-        </div>
-
-        <div class="input-group textarea-group">
-
-            <label>Observaciones</label>
-
-            <textarea
-
-                id="observacionesInput"
-
-                rows="4"
-
-                placeholder="Observaciones generales de la auditoría"
-
-            ></textarea>
+            </p>
 
         </div>
 
     </div>
+
+    <div class="form-grid">
+
+        <div class="input-group">
+
+            <label>Tipo de Auditoría</label>
+
+            <select id="tipoInput">
+
+                <option value="">Seleccione</option>
+                <option value="Inventario">Inventario</option>
+                <option value="Recepciones">Recepciones</option>
+                <option value="Compras">Compras</option>
+                <option value="Despachos">Despachos</option>
+                <option value="Ventas">Ventas</option>
+
+            </select>
+
+        </div>
+
+        <div class="input-group">
+
+            <label>Responsable</label>
+
+            <input
+                id="responsableInput"
+                type="text"
+                placeholder="Responsable"
+            >
+
+        </div>
+
+        <div class="input-group">
+
+            <label>Nombre Auditoría</label>
+
+            <input
+                id="nombreInput"
+                type="text"
+                placeholder="Nombre"
+            >
+
+        </div>
+
+        <div class="input-group">
+
+            <label>Fecha</label>
+
+            <input
+                id="fechaInput"
+                type="date"
+            >
+
+        </div>
+
+        <div class="input-group">
+
+            <label>Proceso / Referencia</label>
+
+            <input
+                id="procesoInput"
+                type="text"
+                placeholder="Proceso"
+            >
+
+        </div>
+
+        <div class="input-group">
+
+            <label>Estado</label>
+
+            <select id="estadoInput">
+
+                <option value="Pendiente">Pendiente</option>
+                <option value="En proceso">En proceso</option>
+                <option value="Finalizada">Finalizada</option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+    <div class="input-group textarea-group">
+
+        <label>Observaciones</label>
+
+        <textarea
+
+            id="observacionesInput"
+
+            placeholder="Escriba las observaciones de la auditoría..."
+
+        ></textarea>
+
+    </div>
+
+</div>
 
     <!-- ==========================================
          DOCUMENTOS
     =========================================== -->
 
-    <div class="module-card">
+<div class="module-card">
 
-        <div class="table-header">
+    <div class="table-header">
 
-            <h3>Documentos de la Auditoría</h3>
+        <div>
 
-        </div>
+            <h3>Documentos Adjuntos</h3>
 
-        <div class="documentos-container">
+            <p class="section-description">
 
-            <div id="listaDocumentos">
+                PDF y archivos Excel relacionados con la auditoría.
 
-                <div class="documento-vacio">
-
-                    📄 Ningún documento agregado.
-
-                </div>
-
-            </div>
-
-            <div class="button-group">
-
-                <input
-
-                    type="file"
-
-                    id="documentoInput"
-
-                    accept=".xlsx,.xls,.pdf"
-
-                    multiple
-
-                    hidden
-
-                >
-
-                <button
-
-                    id="btnAgregarDocumento"
-
-                    type="button"
-
-                    class="btn-secondary"
-
-                >
-
-                    + Agregar Documento
-
-                </button>
-
-            </div>
+            </p>
 
         </div>
 
     </div>
+
+    <div class="documentos-container">
+
+        <div id="listaDocumentos">
+
+            <div class="documento-vacio">
+
+                📄 Ningún documento agregado.
+
+            </div>
+
+        </div>
+
+        <div class="button-group">
+
+            <input
+
+                id="documentoInput"
+
+                type="file"
+
+                accept=".pdf,.xlsx,.xls"
+
+                multiple
+
+                hidden
+
+            >
+
+            <button
+
+                id="btnAgregarDocumento"
+
+                class="btn-secondary"
+
+                type="button"
+
+            >
+
+                + Agregar Documento
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
 
     <!-- ==========================================
          BOTÓN GUARDAR
     =========================================== -->
 
-    <div class="button-group">
+    <div class="guardar-container">
 
-        <button
+    <button
 
-            id="guardarAuditoria"
+        id="guardarAuditoria"
 
-            class="btn-primary"
+        class="btn-primary"
 
-        >
+    >
 
-            Guardar Auditoría
+        Guardar Auditoría
 
-        </button>
+    </button>
 
-    </div>
+</div>
 
     <!-- ==========================================
          HISTORIAL
@@ -216,7 +234,17 @@
 
         <div class="table-header">
 
-            <h3>Historial de Auditorías</h3>
+           <div>
+
+    <h3>Historial de Auditorías</h3>
+
+    <p class="section-description">
+
+        Auditorías registradas en el sistema.
+
+    </p>
+
+</div>
 
         </div>
 
@@ -271,17 +299,11 @@
             <h3>Detalle de la Auditoría</h3>
 
             <button
-
                 id="cerrarDetalleAuditoria"
-
                 class="btn-cerrar-modal"
-
                 type="button"
-
             >
-
                 ✕
-
             </button>
 
         </div>
@@ -356,7 +378,10 @@
 
     </div>
 
-    <!-- ==========================================
+</div>
+
+
+<!-- ==========================================
      MODAL DOCUMENTOS
 =========================================== -->
 
@@ -386,4 +411,4 @@
 
 </div>
 
-</div>
+
