@@ -628,3 +628,76 @@ MODAL DOCUMENTOS PREMIUM
     transform:scale(.95);
 
 }
+.btn-ver,
+.btn-editar,
+.btn-eliminar{
+
+    width:42px;
+
+    height:42px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-size:17px;
+
+    transition:.25s;
+
+}
+
+.btn-ver{
+
+    background:#2563EB;
+
+    color:#fff;
+
+}
+
+.btn-ver:hover{
+
+    background:#1D4ED8;
+
+    transform:translateY(-2px);
+
+}
+
+.btn-editar{
+
+    background:#FACC15;
+
+    color:#111827;
+
+}
+
+.btn-editar:hover{
+
+    background:#EAB308;
+
+    transform:translateY(-2px);
+
+}
+
+.btn-eliminar{
+
+    background:#EF4444;
+
+    color:#fff;
+
+}
+
+.btn-eliminar:hover{
+
+    background:#DC2626;
+
+    transform:translateY(-2px);
+
+}
