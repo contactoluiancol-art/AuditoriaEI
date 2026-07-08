@@ -346,13 +346,15 @@ async function guardarAuditoria(){
 
             );
 
-            if(subida.error){
+          if(subida.error){
 
-                console.log(subida.error);
+    console.error(subida.error);
 
-                continue;
+    alert("Error subiendo archivo:\n\n" + subida.error.message);
 
-            }
+    return;
+
+}
 
             const extension =
 
@@ -383,16 +385,15 @@ async function guardarAuditoria(){
                 tamano: archivo.size
 
             }]);
+if(guardarDocumento.error){
 
-            if(guardarDocumento.error){
+    console.error(guardarDocumento.error);
 
-                console.log(
+    alert("Error guardando documento:\n\n" + guardarDocumento.error.message);
 
-                    guardarDocumento.error
+    return;
 
-                );
-
-            }
+}
 
         }
 
