@@ -212,21 +212,15 @@ window.eliminarDocumentoTemporal=function(index){
 
 }
 
-// ======================================
-// GUARDAR AUDITORIA
-// ======================================
-
 async function guardarAuditoria(){
 
     try{
 
         if(
-
             !window.tienePermiso(
                 "auditorias",
                 "crear"
             )
-
         ){
 
             alert("No tiene permisos.");
@@ -239,64 +233,48 @@ async function guardarAuditoria(){
         document.getElementById("tipoInput").value;
 
         const nombre =
-        document.getElementById("nombreInput")
-        .value
-        .trim();
+        document.getElementById("nombreInput").value.trim();
 
         const proceso =
-        document.getElementById("procesoInput")
-        .value
-        .trim();
+        document.getElementById("procesoInput").value.trim();
 
         const responsable =
-        document.getElementById("responsableInput")
-        .value
-        .trim();
+        document.getElementById("responsableInput").value.trim();
 
         const estado =
-        document.getElementById("estadoInput")
-        .value;
+        document.getElementById("estadoInput").value;
 
         const fecha =
-        document.getElementById("fechaInput")
-        .value;
+        document.getElementById("fechaInput").value;
 
         const observaciones =
-        document.getElementById("observacionesInput")
-        .value
-        .trim();
+        document.getElementById("observacionesInput").value.trim();
 
         if(
-
             !tipo ||
-
             !nombre ||
-
             !proceso ||
-
             !responsable ||
-
             !fecha
-
         ){
 
-            alert(
-
-                "Complete todos los campos obligatorios."
-
-            );
+            alert("Complete todos los campos obligatorios.");
 
             return;
 
         }
 
-        //==================================
-        // POR AHORA SOLO GUARDA
-        // LOS DATOS
-        // STORAGE VIENE EN LA PARTE 3
-        //==================================
+        //==============================
+        // CREAR AUDITORÍA
+        //==============================
 
-        const response=
+        const {
+
+            data,
+
+            error
+
+        } =
 
         await window.supabaseClient
 
@@ -305,34 +283,124 @@ async function guardarAuditoria(){
         .insert([{
 
             tipo,
-
             nombre,
-
             proceso,
-
             responsable,
-
             estado,
-
             fecha,
+            observaciones
 
-            observaciones,
+        }])
 
-            created_at:new Date().toISOString()
+        .select()
 
-        }]);
+        .single();
 
-        if(response.error){
+        if(error){
 
-            console.log(response.error);
+            console.log(error);
 
-            alert("Error al guardar.");
+            alert("Error guardando la auditoría.");
 
             return;
 
         }
 
-        if(typeof guardarHistorial==="function"){
+        const auditoriaId = data.id;
+
+        //==============================
+        // SUBIR DOCUMENTOS
+        //==============================
+
+        for(const archivo of documentosSeleccionados){
+
+            const nombreStorage =
+
+                Date.now() +
+
+                "_" +
+
+                archivo.name;
+
+            const rutaStorage =
+
+                auditoriaId +
+
+                "/" +
+
+                nombreStorage;
+
+            const subida =
+
+            await window.supabaseClient
+
+            .storage
+
+            .from("auditorias")
+
+            .upload(
+
+                rutaStorage,
+
+                archivo
+
+            );
+
+            if(subida.error){
+
+                console.log(subida.error);
+
+                continue;
+
+            }
+
+            const extension =
+
+            archivo.name
+
+            .split(".")
+
+            .pop()
+
+            .toUpperCase();
+
+            const guardarDocumento =
+
+            await window.supabaseClient
+
+            .from("auditoria_documentos")
+
+            .insert([{
+
+                auditoria_id: auditoriaId,
+
+                nombre_archivo: archivo.name,
+
+                ruta_storage: rutaStorage,
+
+                tipo_archivo: extension,
+
+                tamano: archivo.size
+
+            }]);
+
+            if(guardarDocumento.error){
+
+                console.log(
+
+                    guardarDocumento.error
+
+                );
+
+            }
+
+        }
+
+        //==============================
+        // HISTORIAL
+        //==============================
+
+        if(typeof guardarHistorial === "function"){
 
             await guardarHistorial(
 
@@ -340,27 +408,29 @@ async function guardarAuditoria(){
 
                 "AUDITORIAS",
 
-                "Nueva auditoría: "+nombre
+                "Nueva auditoría: " +
+
+                nombre
 
             );
 
         }
 
-        limpiarFormulario();
+limpiarFormulario();
 
-        renderDocumentos();
+await window.renderAuditorias();
 
-        await window.renderAuditorias();
+alert("Auditoría registrada correctamente.");
 
-        alert("Auditoría registrada correctamente.");
+}
 
-    }
+catch(error){
 
-    catch(error){
+    console.log(error);
 
-        console.log(error);
+    alert("Ocurrió un error inesperado.");
 
-    }
+}
 
 }
 
@@ -384,14 +454,9 @@ function limpiarFormulario(){
 
     document.getElementById("observacionesInput").value="";
 
-    documentosSeleccionados=[];
+limpiarDocumentos();
 
 }
-
-// ==========================================
-// PARTE 2
-// Render - Editar - Eliminar
-// ==========================================
 
 // ============================
 // RENDER AUDITORÍAS
@@ -607,17 +672,128 @@ window.renderAuditorias = async function () {
 // VER DOCUMENTOS
 // ============================
 
-window.verDocumentos = async function (id) {
+window.verDocumentos = async function(id){
 
-    alert(
+    try{
 
-        "Aquí se mostrarán los documentos de la auditoría.\n\n" +
+        const modal =
 
-        "Esta función quedará conectada con Supabase Storage."
+        document.getElementById(
 
-    );
+            "modalDocumentos"
 
-};
+        );
+
+        const lista =
+
+        document.getElementById(
+
+            "listaDocumentosModal"
+
+        );
+
+        lista.innerHTML="";
+
+        const {data,error}=
+
+        await window.supabaseClient
+
+        .from("auditoria_documentos")
+
+        .select("*")
+
+        .eq(
+
+            "auditoria_id",
+
+            id
+
+        )
+
+        .order(
+
+            "id"
+
+        );
+
+        if(error){
+
+            console.log(error);
+
+            return;
+
+        }
+
+if(!data || data.length === 0){
+
+    lista.innerHTML = "<p>No existen documentos.</p>";
+
+    if(modal){
+
+        modal.classList.add("active");
+
+    }
+
+    return;
+
+}
+        data.forEach(function(doc){
+
+            lista.innerHTML+=`
+
+            <div class="documento-storage">
+
+                <div>
+
+                    <strong>
+
+                    📄 ${doc.nombre_archivo}
+
+                    </strong>
+
+                    <br>
+
+                    ${doc.tipo_archivo}
+
+                </div>
+
+                <div>
+
+                    <button
+
+                        class="btn-primary"
+
+                        onclick="descargarDocumento('${doc.ruta_storage}')"
+
+                    >
+
+                        Descargar
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            `;
+
+        });
+
+      if(modal){
+
+    modal.classList.add("active");
+
+}
+
+    }
+
+    catch(error){
+
+        console.log(error);
+
+    }
+
+}
 
 // ============================
 // ELIMINAR AUDITORÍA
@@ -894,258 +1070,41 @@ function limpiarDocumentos() {
 // RESETEAR MÓDULO
 // ============================
 
-function reiniciarModuloAuditorias() {
-
-    limpiarFormulario();
-
-    limpiarDocumentos();
-
-}
-
-// ============================
-// PREPARADO STORAGE
-// ============================
-
-async function subirDocumentosStorage(idAuditoria) {
-
-    console.log(
-
-        "Pendiente integración con Storage.",
-
-        idAuditoria
-
-    );
-
-}
-
-// ============================
-// PREPARADO DESCARGA
-// ============================
-
-async function descargarDocumento(idDocumento) {
-
-    console.log(
-
-        "Pendiente descarga.",
-
-        idDocumento
-
-    );
-
-}
-
-// ============================
-// PREPARADO ELIMINAR DOCUMENTO
-// ============================
-
-async function eliminarDocumento(idDocumento) {
-
-    console.log(
-
-        "Pendiente eliminar documento.",
-
-        idDocumento
-
-    );
-
-}
-
-// ======================================
-// GUARDAR AUDITORIA
-// ======================================
-
-async function guardarAuditoria(){
+window.descargarDocumento = async function(ruta){
 
     try{
 
-        if(
-            !window.tienePermiso(
-                "auditorias",
-                "crear"
-            )
-        ){
-            alert("No tiene permisos.");
-            return;
-        }
-
-        const tipo =
-        document.getElementById("tipoInput").value;
-
-        const nombre =
-        document.getElementById("nombreInput").value.trim();
-
-        const proceso =
-        document.getElementById("procesoInput").value.trim();
-
-        const responsable =
-        document.getElementById("responsableInput").value.trim();
-
-        const estado =
-        document.getElementById("estadoInput").value;
-
-        const fecha =
-        document.getElementById("fechaInput").value;
-
-        const observaciones =
-        document.getElementById("observacionesInput").value.trim();
-
-        if(
-            !tipo ||
-            !nombre ||
-            !proceso ||
-            !responsable ||
-            !fecha
-        ){
-
-            alert("Complete todos los campos.");
-
-            return;
-
-        }
-
-        //==============================
-        // CREA LA AUDITORIA
-        //==============================
-
-        const { data, error } =
+        const {data,error}=
 
         await window.supabaseClient
 
+        .storage
+
         .from("auditorias")
 
-        .insert([{
+        .createSignedUrl(
 
-            tipo,
-            nombre,
-            proceso,
-            responsable,
-            estado,
-            fecha,
-            observaciones
+            ruta,
 
-        }])
+            60
 
-        .select()
-
-        .single();
+        );
 
         if(error){
 
             console.log(error);
 
-            alert("No fue posible guardar.");
-
             return;
 
         }
 
-        const auditoriaId = data.id;
+        window.open(
 
-        //==============================
-        // SUBIR DOCUMENTOS
-        //==============================
+            data.signedUrl,
 
-        for(const archivo of documentosSeleccionados){
+            "_blank"
 
-            const nombreArchivo =
-
-            Date.now() +
-
-            "_" +
-
-            archivo.name;
-
-            const ruta =
-
-            auditoriaId +
-
-            "/" +
-
-            nombreArchivo;
-
-            const subida =
-
-            await window.supabaseClient
-
-            .storage
-
-            .from("auditorias")
-
-            .upload(
-
-                ruta,
-
-                archivo
-
-            );
-
-            if(subida.error){
-
-                console.log(subida.error);
-
-                continue;
-
-            }
-
-            const extension =
-
-            archivo.name
-
-            .split(".")
-
-            .pop()
-
-            .toUpperCase();
-
-            await window.supabaseClient
-
-            .from("auditoria_documentos")
-
-            .insert([{
-
-                auditoria_id:auditoriaId,
-
-                nombre_archivo:archivo.name,
-
-                ruta_storage:ruta,
-
-                tipo_archivo:extension,
-
-                tamano:archivo.size,
-
-                extension:extension
-
-            }]);
-
-        }
-
-        //==============================
-        // HISTORIAL
-        //==============================
-
-        if(typeof guardarHistorial==="function"){
-
-            await guardarHistorial(
-
-                "CREAR",
-
-                "AUDITORIAS",
-
-                "Nueva auditoría: " +
-
-                nombre
-
-            );
-
-        }
-
-        limpiarFormulario();
-
-        renderDocumentos();
-
-        await window.renderAuditorias();
-
-        alert("Auditoría registrada correctamente.");
+        );
 
     }
 
@@ -1156,7 +1115,33 @@ async function guardarAuditoria(){
     }
 
 }
+const cerrarModalDocumentos =
+document.getElementById(
+    "cerrarModalDocumentos"
+);
 
+
+if(cerrarModalDocumentos){
+
+    cerrarModalDocumentos.onclick=function(){
+
+        document
+
+        .getElementById(
+
+            "modalDocumentos"
+
+        )
+
+        .classList.remove(
+
+            "active"
+
+        );
+
+    }
+
+}
 // ============================
 // INICIO
 // ============================
