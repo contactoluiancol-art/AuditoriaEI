@@ -458,7 +458,7 @@
 
     font-size:14px;
 
-    font-family:'Poppins',sans-serif;
+    
 
     transition:var(--transicion);
 
@@ -543,6 +543,7 @@
 
     font-size:14px;
 
+    
     color:var(--texto);
 
     transition:var(--transicion);
@@ -597,7 +598,7 @@
 
     font-size:14px;
 
-   
+    
 
     color:var(--texto);
 
@@ -658,7 +659,7 @@
 
     font-weight:700;
 
-    font-family:'Poppins',sans-serif;
+    
 
     letter-spacing:.3px;
 
@@ -744,7 +745,7 @@
 
     font-weight:700;
 
-    
+   
 
     cursor:pointer;
 
@@ -823,19 +824,31 @@
 
 }
 
+.table-pro thead th:first-child{
+
+    border-top-left-radius:20px;
+
+}
+
+.table-pro thead th:last-child{
+
+    border-top-right-radius:20px;
+
+}
+
 .table-pro th{
 
-    padding:18px 20px;
+    padding:19px 20px;
 
     text-align:left;
 
-    font-size:13px;
+    font-size:12.5px;
 
     font-weight:700;
 
     text-transform:uppercase;
 
-    letter-spacing:.6px;
+    letter-spacing:.8px;
 
     white-space:nowrap;
 
@@ -851,6 +864,8 @@
 
     font-size:14px;
 
+    vertical-align:middle;
+
 }
 
 .table-pro tbody tr{
@@ -861,9 +876,21 @@
 
 }
 
+.table-pro tbody tr:nth-child(even){
+
+    background:#FAFBFF;
+
+}
+
 .table-pro tbody tr:hover{
 
-    background:linear-gradient(90deg,#EFF6FF 0%,#F8FBFF 100%);
+    background:linear-gradient(90deg,#EFF6FF 0%,#F8FBFF 100%) !important;
+
+}
+
+.table-pro tbody tr:last-child td{
+
+    border-bottom:none;
 
 }
 
@@ -873,11 +900,36 @@
 
     transition:border-color var(--transicion);
 
+    font-weight:600;
+
+    color:var(--texto);
+
 }
 
 .table-pro tbody tr:hover td:first-child{
 
     border-left:3px solid var(--azul);
+
+}
+
+.table-pro tbody td[colspan]{
+
+    text-align:center;
+
+    padding:50px 20px;
+
+    color:#94A3B8;
+
+    font-size:14px;
+
+    background:
+        repeating-linear-gradient(
+            135deg,
+            #FAFBFF,
+            #FAFBFF 10px,
+            #F4F6FB 10px,
+            #F4F6FB 20px
+        );
 
 }
 
@@ -993,7 +1045,9 @@
 
     align-items:center;
 
-    gap:9px;
+    gap:8px;
+
+    flex-wrap:wrap;
 
 }
 
@@ -1008,11 +1062,13 @@
 
     height:36px;
 
+    min-width:36px;
+
     border:none;
 
     border-radius:11px;
 
-    display:flex;
+    display:inline-flex;
 
     justify-content:center;
 
@@ -1024,15 +1080,56 @@
 
     font-size:15px;
 
+    line-height:1;
+
     padding:0;
 
+    margin:0;
+
     box-shadow:0 2px 6px rgba(15,23,42,.08);
+
+    position:relative;
 
 }
 
 .acciones-tabla button:hover{
 
     transform:translateY(-3px) scale(1.05);
+
+}
+
+.acciones-tabla button:active{
+
+    transform:translateY(-1px) scale(1);
+
+}
+
+/* Neutraliza estilos del .btn-primary cuando se usa como
+   botón de icono dentro de la tabla (acción "Documentos") */
+
+.acciones-tabla button.btn-primary{
+
+    background:linear-gradient(135deg,#334155,#0F172A);
+
+    background-size:auto;
+
+    box-shadow:0 2px 6px rgba(15,23,42,.08);
+
+    letter-spacing:normal;
+
+    text-transform:none;
+
+}
+
+.acciones-tabla button.btn-primary::after{
+
+    content:none;
+
+}
+
+.acciones-tabla button.btn-primary:hover{
+
+    box-shadow:0 10px 20px rgba(15,23,42,.30);
 
 }
 
@@ -1114,7 +1211,7 @@
 
     font-weight:700;
 
-   
+    font-family:'Poppins',sans-serif;
 
     transition:var(--transicion);
 
@@ -1619,6 +1716,22 @@
 
 }
 
+.detalle-item span.estado-pendiente,
+
+.detalle-item span.estado-proceso,
+
+.detalle-item span.estado-finalizada{
+
+    font-size:12px;
+
+    align-self:flex-start;
+
+}
+
+.detalle-item span.estado-pendiente{ color:#92400E; }
+.detalle-item span.estado-proceso{ color:#1D4ED8; }
+.detalle-item span.estado-finalizada{ color:#166534; }
+
 
 /*==================================================
 =            OBSERVACIONES
@@ -1779,7 +1892,7 @@
 
     font-weight:700;
 
-    font-family:'Poppins',sans-serif;
+    
 
     transition:var(--transicion);
 
