@@ -611,21 +611,48 @@ cerrarModal(){
 
     }
 
-    //======================================================
-    // CALCULAR INDICADORES
-    //======================================================
 
-    calcular(datos){
 
-        const cobertura =
+   //======================================================
+// CALCULAR INDICADORES
+//======================================================
 
-            datos.totalEmpresa>0
+calcular(datos){
 
-            ? (datos.auditados/datos.totalEmpresa)*100
+    //=========================================
+    // SI AÚN NO SE HA AUDITADO NADA
+    // NO SE CALCULAN LOS INDICADORES
+    //=========================================
 
-            :0;
+    if (datos.auditados === 0) {
 
-        const cumplimiento =
+        return {
+
+            cobertura: 0,
+
+            cumplimiento: 0,
+
+            fisica: 0,
+
+            economica: 0,
+
+            ajustes: 0,
+
+            indice: 0
+
+        };
+
+    }
+
+    const cobertura =
+
+        datos.totalEmpresa>0
+
+        ? (datos.auditados/datos.totalEmpresa)*100
+
+        :0;
+
+    const cumplimiento =
 
             datos.programados>0
 
