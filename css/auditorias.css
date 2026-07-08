@@ -167,6 +167,59 @@
 
 }
 
+.header-title{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+    position:relative;
+
+}
+
+.header-icon{
+
+    width:62px;
+
+    height:62px;
+
+    flex-shrink:0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:28px;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,.12);
+
+    border:1px solid rgba(255,255,255,.22);
+
+    backdrop-filter:blur(8px);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.25),
+        0 10px 24px rgba(0,0,0,.18);
+
+    animation:flotarIcono 4s ease-in-out infinite;
+
+    position:relative;
+
+}
+
+@keyframes flotarIcono{
+
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(-4px); }
+
+}
+
 .module-header h2{
 
     margin:0;
@@ -180,12 +233,6 @@
     letter-spacing:-.5px;
 
     position:relative;
-
-    display:inline-flex;
-
-    align-items:center;
-
-    gap:12px;
 
 }
 
@@ -308,27 +355,51 @@
 
     position:relative;
 
-    padding-left:16px;
+}
+
+.table-header-title{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
 
 }
 
-.table-header h3::before{
+.card-icon{
 
-    content:'';
+    width:46px;
 
-    position:absolute;
+    height:46px;
 
-    left:0;
+    flex-shrink:0;
 
-    top:2px;
+    display:flex;
 
-    bottom:2px;
+    align-items:center;
 
-    width:5px;
+    justify-content:center;
 
-    border-radius:6px;
+    font-size:20px;
 
-    background:var(--gradiente-oro);
+    border-radius:14px;
+
+    background:linear-gradient(135deg,#EFF6FF,#E0E9FF);
+
+    border:1px solid #DCE7FB;
+
+    box-shadow:0 4px 12px rgba(37,99,235,.12);
+
+    transition:var(--transicion);
+
+}
+
+.module-card:hover .card-icon{
+
+    transform:scale(1.06) rotate(-3deg);
+
+    box-shadow:0 8px 18px rgba(37,99,235,.20);
 
 }
 
@@ -347,13 +418,37 @@
 
 }
 
+.search-wrapper{
+
+    position:relative;
+
+    display:flex;
+
+    align-items:center;
+
+}
+
+.search-icon{
+
+    position:absolute;
+
+    left:18px;
+
+    font-size:14px;
+
+    opacity:.55;
+
+    pointer-events:none;
+
+}
+
 .input-search{
 
     height:46px;
 
     min-width:240px;
 
-    padding:0 18px;
+    padding:0 18px 0 42px;
 
     border-radius:999px;
 
@@ -624,6 +719,14 @@
 .btn-primary:active{
 
     transform:translateY(-1px);
+
+}
+
+.btn-icon{
+
+    display:inline-flex;
+
+    margin-right:4px;
 
 }
 
@@ -1904,9 +2007,25 @@ textarea:focus{
 
     }
 
+    .search-wrapper{
+
+        width:100%;
+
+    }
+
     .input-search{
 
         width:100%;
+
+    }
+
+    .header-icon{
+
+        width:52px;
+
+        height:52px;
+
+        font-size:24px;
 
     }
 
