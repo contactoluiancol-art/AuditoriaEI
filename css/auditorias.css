@@ -543,8 +543,6 @@
 
     font-size:14px;
 
-    font-family:'Poppins',sans-serif;
-
     color:var(--texto);
 
     transition:var(--transicion);
@@ -599,7 +597,7 @@
 
     font-size:14px;
 
-    font-family:'Poppins',sans-serif;
+   
 
     color:var(--texto);
 
@@ -746,7 +744,7 @@
 
     font-weight:700;
 
-    font-family:'Poppins',sans-serif;
+    
 
     cursor:pointer;
 
@@ -1116,7 +1114,7 @@
 
     font-weight:700;
 
-    font-family:'Poppins',sans-serif;
+   
 
     transition:var(--transicion);
 
