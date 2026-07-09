@@ -1358,20 +1358,24 @@
 
     position:fixed;
 
-    inset:0;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
 
-    background:
-        radial-gradient(circle at 50% 0%, rgba(37,99,235,.15), rgba(9,14,30,.75) 60%);
+    background:rgba(15,23,42,.60);
 
-    backdrop-filter:blur(10px);
+    backdrop-filter:blur(8px);
 
     display:none;
 
     justify-content:center;
 
-    align-items:center;
+    align-items:flex-start;
 
-    padding:25px;
+    overflow-y:auto;
+
+    padding:40px 25px;
 
     z-index:9999;
 
