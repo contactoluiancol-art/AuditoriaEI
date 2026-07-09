@@ -545,109 +545,65 @@ window.renderAuditorias = async function () {
 
             }
 
-            html += `
+          html += `
+<tr>
 
-                <tr>
+    <td>${item.tipo}</td>
 
-                    <td>${item.tipo}</td>
+    <td>${item.nombre}</td>
 
-                    <td>${item.nombre}</td>
+    <td>${item.responsable}</td>
 
-                    <td>${item.proceso}</td>
+    <td>
+        <span class="${estadoClass}">
+            ${item.estado}
+        </span>
+    </td>
 
-                    <td>${item.responsable}</td>
+    <td>
+        ${new Date(item.fecha).toLocaleDateString("es-CO")}
+    </td>
 
-                    <td>
+    <td>
+        <div class="acciones-tabla">
 
-                        <span class="${estadoClass}">
+            ${window.tienePermiso("auditorias","editar") ? `
+                <button
+                    class="btn-ver"
+                    title="Ver detalle"
+                    onclick="verDetalleAuditoria(${item.id})">
+                    👁️
+                </button>
 
-                            ${item.estado}
+                <button
+                    class="btn-primary"
+                    title="Documentos"
+                    onclick="verDocumentos(${item.id})">
+                    📁
+                </button>
 
-                        </span>
+                <button
+                    class="btn-editar"
+                    title="Editar"
+                    onclick="editarEstado(${item.id})">
+                    ✏️
+                </button>
+            ` : ""}
 
-                    </td>
+            ${window.tienePermiso("auditorias","eliminar") ? `
+                <button
+                    class="btn-eliminar"
+                    title="Eliminar"
+                    onclick="eliminarAuditoria(${item.id})">
+                    🗑️
+                </button>
+            ` : ""}
 
-                    <td>
+        </div>
+    </td>
 
-                        ${new Date(item.fecha).toLocaleDateString("es-CO")}
-
-                    </td>
-
-                    <td>
-
-                        <div class="acciones-tabla">
-
-                            ${window.tienePermiso("auditorias","editar") ? `
-
-                                <button
-
-                                    class="btn-ver"
-
-                                    title="Ver detalle"
-
-                                    onclick="verDetalleAuditoria(${item.id})"
-
-                                >
-
-                                    👁️
-
-                                </button>
-
-                                <button
-
-                                    class="btn-primary"
-
-                                    title="Documentos"
-
-                                    onclick="verDocumentos(${item.id})"
-
-                                >
-
-                                    📁
-
-                                </button>
-
-                                <button
-
-                                    class="btn-editar"
-
-                                    title="Editar"
-
-                                    onclick="editarEstado(${item.id})"
-
-                                >
-
-                                    ✏️
-
-                                </button>
-
-                            ` : ""}
-
-                            ${window.tienePermiso("auditorias","eliminar") ? `
-
-                                <button
-
-                                    class="btn-eliminar"
-
-                                    title="Eliminar"
-
-                                    onclick="eliminarAuditoria(${item.id})"
-
-                                >
-
-                                    🗑️
-
-                                </button>
-
-                            ` : ""}
-
-                        </div>
-
-                    </td>
-
-                </tr>
-
-            `;
+</tr>
+`;
 
         });
 
