@@ -537,47 +537,85 @@ function buscarProducto(){
 
     }
 
-    window.productoActual =
+ // ========================================
+// BUSCAR TODOS LOS REGISTROS DEL CÓDIGO
+// ========================================
 
-    (window.inventario || [])
+const registros =
 
-    .find(function(item){
+(window.inventario || [])
 
-      return String(
-        item.codigo
-      ) === String(codigo);
+.filter(function(item){
 
-    });
+    return String(item.codigo).trim() === String(codigo).trim();
 
-    if(!window.productoActual){
+});
 
-      alert(
-        'Producto no encontrado'
-      );
+if(registros.length === 0){
 
-      return;
-
-    }
-
-    actualizarTexto(
-      'codigoProducto',
-      window.productoActual.codigo || '-'
+    alert(
+      'Producto no encontrado'
     );
 
-    actualizarTexto(
-      'nombreProducto',
-      window.productoActual.producto || '-'
-    );
+    return;
 
-    actualizarTexto(
-      'ubicacionProducto',
-      window.productoActual.ubicacion || '-'
-    );
+}
 
-    actualizarTexto(
-      'stockProducto',
-      window.productoActual.stock || 0
-    );
+// ========================================
+// SUMAR STOCK TOTAL
+// ========================================
+
+const stockTotal =
+
+registros.reduce(function(total,item){
+
+    return total + Number(item.stock || 0);
+
+},0);
+
+// ========================================
+// GUARDAR PRODUCTO ACTUAL
+// ========================================
+
+window.productoActual = {
+
+    codigo: registros[0].codigo,
+
+    producto: registros[0].producto,
+
+    ubicacion: registros[0].ubicacion,
+
+    stock: stockTotal,
+
+    registros: registros.length
+
+};
+
+// ========================================
+// MOSTRAR INFORMACIÓN
+// ========================================
+
+actualizarTexto(
+  'codigoProducto',
+  window.productoActual.codigo || '-'
+);
+
+actualizarTexto(
+  'nombreProducto',
+  window.productoActual.producto || '-'
+);
+
+actualizarTexto(
+  'ubicacionProducto',
+  window.productoActual.ubicacion || '-'
+);
+
+actualizarTexto(
+  'stockProducto',
+  window.productoActual.stock + ' (' +
+  window.productoActual.registros +
+  ' registros)'
+);
 
   }
 
