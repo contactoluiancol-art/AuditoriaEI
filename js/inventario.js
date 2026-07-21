@@ -1123,7 +1123,13 @@ window.actualizarKPIs = function(){
     let exactos = 0;
     let faltantes = 0;
     let sobrantes = 0;
-    let sumaExactitud = 0;
+
+    // ========================================
+    // VARIABLES EXACTITUD GLOBAL
+    // ========================================
+
+    let totalSistema = 0;
+    let totalDiferencias = 0;
 
     historial.forEach(function(item){
 
@@ -1132,6 +1138,13 @@ window.actualizarKPIs = function(){
 
       const fisico =
       Number(item.fisico || 0);
+
+      const diferencia =
+      Math.abs(fisico - sistema);
+
+      // ========================================
+      // KPIs
+      // ========================================
 
       if(fisico === sistema){
         exactos++;
@@ -1145,39 +1158,53 @@ window.actualizarKPIs = function(){
         sobrantes++;
       }
 
-      const mayor =
-      Math.max(sistema,fisico);
+      // ========================================
+      // ACUMULAR PARA EXACTITUD GLOBAL
+      // ========================================
 
-      const menor =
-      Math.min(sistema,fisico);
+      totalSistema += sistema;
 
-      if(mayor > 0){
-
-        sumaExactitud +=
-
-        (menor / mayor) * 100;
-
-      }
+      totalDiferencias += diferencia;
 
     });
 
     const totalConteos =
     historial.length;
 
-    const exactitudGeneral =
+    // ========================================
+    // CALCULAR EXACTITUD GLOBAL
+    // ========================================
 
-    totalConteos > 0
+    let exactitudGeneral = '0.00';
 
-    ?
+    if(totalSistema > 0){
 
-    (
-      sumaExactitud /
-      totalConteos
-    ).toFixed(1)
+      exactitudGeneral = (
 
-    :
+        (
+          1 -
 
-    '0.0';
+          (
+            totalDiferencias /
+            totalSistema
+          )
+
+        ) * 100
+
+      ).toFixed(2);
+
+      // Evitar porcentajes negativos
+      if(Number(exactitudGeneral) < 0){
+
+        exactitudGeneral = '0.00';
+
+      }
+
+    }
+
+    // ========================================
+    // ACTUALIZAR KPIs
+    // ========================================
 
     actualizarTexto(
       'kpiTotal',
