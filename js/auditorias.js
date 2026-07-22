@@ -47,6 +47,11 @@ document.getElementById("listaDocumentos");
 let documentosSeleccionados = [];
 
 // ============================
+// CACHE DE AUDITORÍAS
+// ============================
+
+let auditoriasCache = [];
+// ============================
 // EVENTOS
 // ============================
 
@@ -419,7 +424,7 @@ if(guardarDocumento.error){
 
 limpiarFormulario();
 
-await window.renderAuditorias();
+await window.cargarAuditorias();
 
 alert("Auditoría registrada correctamente.");
 
@@ -458,34 +463,29 @@ function limpiarFormulario(){
 limpiarDocumentos();
 
 }
-
 // ============================
-// RENDER AUDITORÍAS
+// CARGAR AUDITORÍAS
 // ============================
 
-window.renderAuditorias = async function () {
+window.cargarAuditorias = async function(){
 
-    try {
+    try{
 
-        const body = document.getElementById("auditoriasBody");
+        const { data, error } =
 
-        if (!body) return;
+        await window.supabaseClient
 
-        body.innerHTML = "";
+        .from("auditorias")
 
-        const { data, error } = await window.supabaseClient
+        .select("*")
 
-            .from("auditorias")
+        .order("created_at",{
 
-            .select("*")
+            ascending:false
 
-            .order("created_at", {
+        });
 
-                ascending: false
-
-            });
-
-        if (error) {
+        if(error){
 
             console.error(error);
 
@@ -493,20 +493,46 @@ window.renderAuditorias = async function () {
 
         }
 
-        if (!data || data.length === 0) {
+        auditoriasCache = data || [];
+
+        window.renderAuditorias(auditoriasCache);
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+    }
+
+};
+// ============================
+// RENDER AUDITORÍAS
+// ============================
+
+window.renderAuditorias = function(lista = auditoriasCache){
+
+    try{
+
+        const body =
+        document.getElementById("auditoriasBody");
+
+        if(!body){
+
+            return;
+
+        }
+
+        body.innerHTML = "";
+
+        if(!lista || lista.length === 0){
 
             body.innerHTML = `
-
                 <tr>
-
                     <td colspan="7" style="text-align:center;padding:30px;">
-
                         No existen auditorías registradas.
-
                     </td>
-
                 </tr>
-
             `;
 
             return;
@@ -515,7 +541,7 @@ window.renderAuditorias = async function () {
 
         let html = "";
 
-        data.forEach(function(item){
+        lista.forEach(function(item){
 
             let estadoClass = "";
 
@@ -823,7 +849,7 @@ window.eliminarAuditoria = async function (id) {
 
         }
 
-        await window.renderAuditorias();
+        await window.cargarAuditorias();
 
     }
 
@@ -903,7 +929,7 @@ window.editarEstado = async function (id) {
 
         }
 
-        await window.renderAuditorias();
+        await window.cargarAuditorias();
 
     }
 
@@ -1206,7 +1232,7 @@ window.iniciarRefreshAuditorias = function(){
 
         if(document.getElementById("auditoriasBody")){
 
-            window.renderAuditorias();
+            window.cargarAuditorias();
 
         }
 
@@ -1222,7 +1248,7 @@ window.iniciarRefreshAuditorias = function(){
 
     renderDocumentos();
 
-    window.renderAuditorias();
+ window.cargarAuditorias();
 
     window.iniciarRefreshAuditorias();
 
