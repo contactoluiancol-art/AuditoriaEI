@@ -908,38 +908,91 @@ calcular(datos){
 //======================================================
 // GUARDAR / ACTUALIZAR
 //======================================================
-
-guardar(){
+async guardar(){
 
     const datos = this.obtenerDatos();
 
     if(!this.validar(datos)){
+        return;
+    }
+
+    const indicadores = this.calcular(datos);
+
+    const usuarioLogueado =
+
+    JSON.parse(
+        localStorage.getItem("usuarioLogueado")
+    );
+
+    const analisis = {
+
+        anio: datos.anio,
+
+        mes: datos.mes,
+
+        nombre: datos.nombre,
+
+        total_empresa: datos.totalEmpresa,
+
+        programados: datos.programados,
+
+        auditados: datos.auditados,
+
+        correctos: datos.correctos,
+
+        sobrantes: datos.sobrantes,
+
+        faltantes: datos.faltantes,
+
+        valor_inventario: datos.valorInventario,
+
+        valor_auditado: datos.valorAuditado,
+
+        valor_diferencias: datos.valorDiferencias,
+
+        valor_ajustes: datos.valorAjustes,
+
+        cobertura: indicadores.cobertura,
+
+        cumplimiento: indicadores.cumplimiento,
+
+        fisica: indicadores.fisica,
+
+        economica: indicadores.economica,
+
+        ajustes: indicadores.ajustes,
+
+        indice: indicadores.indice,
+
+        fecha: new Date(),
+
+        usuario: usuarioLogueado?.usuario || "Sistema"
+
+    };
+
+    const { error } =
+
+    await window.supabaseClient
+
+    .from("confiabilidad_inventario")
+
+    .insert([analisis]);
+
+    if(error){
+
+        console.error(error);
+
+        alert(error.message);
 
         return;
 
     }
 
-    const indicadores = this.calcular(datos);
+    alert("Análisis guardado correctamente.");
 
-    const analisis = {
+    this.cerrarModal();
 
-        id: this.state.editando
-
-            ? this.state.analisis[
-                this.state.indiceEditar
-            ].id
-
-            : Date.now(),
-
-        ...datos,
-
-        ...indicadores,
-
-        fecha: new Date().toLocaleDateString(),
-
-        usuario: "Administrador"
-
-    };
+}
 
     //=========================================
     // ACTUALIZAR
