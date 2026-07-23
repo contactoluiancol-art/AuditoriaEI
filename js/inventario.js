@@ -1418,29 +1418,67 @@ function exportarExcel(){
 // REINICIAR INVENTARIO
 // ========================================
 
-function reiniciarInventario(){
+async function reiniciarInventario(){
 
   try{
 
+    if(
+      !window.tienePermiso(
+        'inventario',
+        'eliminar'
+      )
+    ){
+
+      alert('No tiene permisos');
+      return;
+
+    }
+
     const confirmar = confirm(
-      '¿Eliminar inventario e historial?'
+      '¿Eliminar todo el inventario e historial?'
     );
 
     if(!confirmar){
+      return;
+    }
+
+    // ==============================
+    // ELIMINAR INVENTARIO SUPABASE
+    // ==============================
+
+    const { error } =
+
+    await window.supabaseClient
+
+    .from("inventario")
+
+    .delete()
+
+    .neq("id",0);
+
+    if(error){
+
+      console.error(error);
+
+      alert(
+        "Error eliminando el inventario."
+      );
 
       return;
 
     }
 
-    localStorage.removeItem(
-      'inventario'
-    );
-
-    localStorage.removeItem(
-      'historial'
-    );
+    // ==============================
+    // LIMPIAR VARIABLES
+    // ==============================
 
     window.inventario = [];
+
+    localStorage.removeItem("historial");
+
+    // ==============================
+    // ACTUALIZAR PANTALLA
+    // ==============================
 
     window.renderInventario();
 
@@ -1449,24 +1487,23 @@ function reiniciarInventario(){
     window.actualizarKPIs();
 
     actualizarTexto(
-      'resultadoTexto',
-      '-'
+      "resultadoTexto",
+      "-"
     );
 
     alert(
-      'Inventario reiniciado'
+      "Inventario reiniciado correctamente."
     );
 
   }
 
   catch(error){
 
-    console.log(error);
+    console.error(error);
 
   }
 
 }
-
 // ========================================
 // HELPERS
 // ========================================
