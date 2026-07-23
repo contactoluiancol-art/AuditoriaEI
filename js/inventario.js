@@ -289,6 +289,46 @@ alert("Inventario cargado correctamente.");
   }
 
 }
+
+// ========================================
+// CARGAR INVENTARIO
+// ========================================
+
+window.cargarInventario = async function(){
+
+  try{
+
+    const { data, error } =
+
+    await window.supabaseClient
+
+    .from("inventario")
+
+    .select("*")
+
+    .order("codigo");
+
+    if(error){
+
+      console.error(error);
+
+      return;
+
+    }
+
+    window.inventario = data || [];
+
+    window.renderInventario();
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+  }
+
+};
 // ========================================
 // RENDER INVENTARIO
 // ========================================
@@ -2023,7 +2063,7 @@ window.cerrarObservacion = function(){
 
 aplicarPermisosInventario();
 
-window.renderInventario();
+window.cargarInventario();
 
 window.renderHistorial();
 
