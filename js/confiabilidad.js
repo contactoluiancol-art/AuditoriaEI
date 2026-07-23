@@ -1558,25 +1558,39 @@ editarAnalisis(indice){
     // ELIMINAR ANÁLISIS
     //======================================================
 
-    eliminarAnalisis(indice){
+   async eliminarAnalisis(indice){
 
-        if(!confirm("¿Desea eliminar este análisis?")){
+    if(!confirm("¿Desea eliminar este análisis?")){
+        return;
+    }
 
-            return;
+    const analisis = this.state.analisis[indice];
 
-        }
+    const { error } = await window.supabaseClient
 
-        this.state.analisis.splice(indice,1);
+        .from("confiabilidad_inventario")
 
-        this.guardarLocal();
+        .delete()
 
-        this.renderHistorial();
+        .eq("id", analisis.id);
 
-        this.actualizarResumen();
+    if(error){
 
-        this.actualizarDashboardInicial();
+        console.error(error);
+
+        alert(error.message);
+
+        return;
 
     }
+
+    await this.cargarAnalisis();
+
+    this.actualizarResumen();
+
+    this.actualizarDashboardInicial();
+
+    alert("Análisis eliminado correctamente.");
 
 }
 
