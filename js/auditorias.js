@@ -646,6 +646,83 @@ window.renderAuditorias = function(lista = auditoriasCache){
 };
 
 // ============================
+// FILTRAR AUDITORÍAS
+// ============================
+
+window.filtrarAuditorias = function(){
+
+    const input =
+    document.getElementById("buscarAuditoria");
+
+    if(!input){
+
+        return;
+
+    }
+
+    const texto =
+    input.value
+    .toLowerCase()
+    .trim();
+
+    if(texto === ""){
+
+        window.renderAuditorias(auditoriasCache);
+
+        return;
+
+    }
+
+    const resultado =
+
+    auditoriasCache.filter(function(item){
+
+        return (
+
+            String(item.tipo || "")
+            .toLowerCase()
+            .includes(texto)
+
+            ||
+
+            String(item.nombre || "")
+            .toLowerCase()
+            .includes(texto)
+
+            ||
+
+            String(item.proceso || "")
+            .toLowerCase()
+            .includes(texto)
+
+            ||
+
+            String(item.responsable || "")
+            .toLowerCase()
+            .includes(texto)
+
+            ||
+
+            String(item.estado || "")
+            .toLowerCase()
+            .includes(texto)
+
+            ||
+
+            String(item.fecha || "")
+            .toLowerCase()
+            .includes(texto)
+
+        );
+
+    });
+
+    window.renderAuditorias(resultado);
+
+};
+
+
+// ============================
 // VER DOCUMENTOS
 // ============================
 
@@ -1248,8 +1325,23 @@ window.iniciarRefreshAuditorias = function(){
 
     renderDocumentos();
 
- window.cargarAuditorias();
+    window.cargarAuditorias();
 
     window.iniciarRefreshAuditorias();
+
+    const buscarAuditoria =
+    document.getElementById("buscarAuditoria");
+
+    if(buscarAuditoria){
+
+        buscarAuditoria.addEventListener(
+
+            "input",
+
+            window.filtrarAuditorias
+
+        );
+
+    }
 
 })();
