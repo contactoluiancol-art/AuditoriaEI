@@ -994,17 +994,7 @@ async guardar(){
 
 }
 
-    //=========================================
-    // ACTUALIZAR
-    //=========================================
 
-    if(this.state.editando){
-
-        this.state.analisis[
-            this.state.indiceEditar
-        ] = analisis;
-
-    }
 
     //=========================================
     // NUEVO
