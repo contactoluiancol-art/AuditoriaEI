@@ -176,11 +176,13 @@ function leerExcel(e){
         // CONVERTIR EXCEL
         // ========================================
 
-        const inventarioExcel =
+      const inventarioExcel =
 
-        XLSX.utils.sheet_to_json(
-          hoja
-        );
+XLSX.utils.sheet_to_json(
+    hoja
+);
+
+console.log(inventarioExcel[0]);
 
         if(
 
