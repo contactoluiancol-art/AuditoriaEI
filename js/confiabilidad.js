@@ -1567,21 +1567,14 @@ editarAnalisis(indice){
     const analisis = this.state.analisis[indice];
 
     const { error } = await window.supabaseClient
-
         .from("confiabilidad_inventario")
-
         .delete()
-
         .eq("id", analisis.id);
 
     if(error){
-
         console.error(error);
-
         alert(error.message);
-
         return;
-
     }
 
     await this.cargarAnalisis();
@@ -1594,14 +1587,10 @@ editarAnalisis(indice){
 
 }
 
+}
+
 //======================================================
 // INICIALIZAR MÓDULO
-//======================================================
-// Al reinstanciar, this.state.analisis vuelve a leer de
-// localStorage en el constructor, por lo que el historial,
-// KPIs e indicadores quedan igual a como se dejaron,
-// aunque el usuario haya navegado a otro módulo o haya
-// refrescado la página completa.
 //======================================================
 
 window.confiabilidad = new ConfiabilidadInventario();
@@ -1610,4 +1599,3 @@ window.confiabilidad = new ConfiabilidadInventario();
 // FIN IIFE
 //==========================================================
 })();
-
