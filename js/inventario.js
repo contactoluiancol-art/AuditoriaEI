@@ -1,4 +1,4 @@
-// ========================================
+º// ========================================
 // LIMPIAR VARIABLES ANTERIORES
 // ========================================
 
@@ -261,6 +261,34 @@ window.inventario = registros;
 window.renderInventario();
 
 alert("Inventario cargado correctamente.");
+
+              }
+
+      catch(error){
+
+        console.error(
+          "Error leyendo Excel:",
+          error
+        );
+
+      }
+
+    };
+
+    reader.readAsArrayBuffer(file);
+
+  }
+
+  catch(error){
+
+    console.error(
+      "Error leerExcel:",
+      error
+    );
+
+  }
+
+}
 // ========================================
 // RENDER INVENTARIO
 // ========================================
