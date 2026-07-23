@@ -101,11 +101,9 @@ class ConfiabilidadInventario{
 
     this.eventos();
 
-    this.actualizarDashboardInicial();
+this.actualizarDashboardInicial();
 
-    this.renderHistorial();
-
-    this.actualizarResumen();
+this.cargarAnalisis();
 
 }
     //======================================================
@@ -990,31 +988,61 @@ async guardar(){
 
     alert("Análisis guardado correctamente.");
 
-    this.cerrarModal();
+   await this.cargarAnalisis();
+
+this.actualizarResumen();
+
+this.limpiarFormulario();
+
+this.cerrarModal();
 
 }
 
 
    
-    //======================================================
-    // GUARDAR LOCALSTORAGE
-    //======================================================
+  guardarLocal(){
 
-    guardarLocal(){
+    localStorage.setItem(
 
-        localStorage.setItem(
+        "confiabilidadInventario",
 
-            "confiabilidadInventario",
+        JSON.stringify(
 
-            JSON.stringify(
+            this.state.analisis
 
-                this.state.analisis
+        )
 
-            )
+    );
 
-        );
+}
+
+//======================================================
+// CARGAR DESDE SUPABASE
+//======================================================
+
+async cargarAnalisis(){
+
+    const { data, error } = await window.supabaseClient
+
+        .from("confiabilidad_inventario")
+
+        .select("*")
+
+        .order("id", { ascending: false });
+
+    if(error){
+
+        console.error(error);
+
+        return;
 
     }
+
+    this.state.analisis = data;
+
+    this.renderHistorial();
+
+}
 
    //======================================================
 // LIMPIAR FORMULARIO
