@@ -144,7 +144,7 @@ function leerExcel(e){
 
     new FileReader();
 
-    reader.onload = function(event){
+    reader.onload = async function(event){
 
       try{
 
@@ -198,92 +198,69 @@ function leerExcel(e){
 
         }
 
-        // ========================================
-        // GUARDAR MEMORIA
-        // ========================================
+       // ========================================
+// GUARDAR EN SUPABASE
+// ========================================
 
-        window.inventario =
-        inventarioExcel;
+const { error: eliminarError } =
 
-        localStorage.setItem(
+await window.supabaseClient
 
-          'inventario',
+.from("inventario")
 
-          JSON.stringify(
-            inventarioExcel
-          )
+.delete()
 
-        );
+.neq("id", 0);
 
-        // ========================================
-        // REFRESCAR PANTALLA
-        // ========================================
+if(eliminarError){
 
-        if(
+    console.error(eliminarError);
 
-          typeof window.renderInventario ===
-          'function'
+    alert("Error limpiando el inventario.");
 
-        ){
-
-          window.renderInventario();
-
-        }
-
-        if(
-
-          typeof window.actualizarKPIs ===
-          'function'
-
-        ){
-
-          window.actualizarKPIs();
-
-        }
-
-        alert(
-          'Excel cargado correctamente'
-        );
-
-      }
-
-      catch(error){
-
-        console.log(
-          'Error Excel:',
-          error
-        );
-
-        alert(
-          'Error leyendo Excel'
-        );
-
-      }
-
-    };
-
-    reader.onerror = function(){
-
-      alert(
-        'No se pudo leer el archivo'
-      );
-
-    };
-
-    reader.readAsArrayBuffer(
-      file
-    );
-
-  }
-
-  catch(error){
-
-    console.log(error);
-
-  }
+    return;
 
 }
 
+const registros = inventarioExcel.map(function(item){
+
+    return{
+
+        codigo: String(item.codigo || "").trim(),
+
+        producto: String(item.producto || "").trim(),
+
+        ubicacion: String(item.ubicacion || "").trim(),
+
+        stock: Number(item.stock || 0)
+
+    };
+
+});
+
+const { error: insertarError } =
+
+await window.supabaseClient
+
+.from("inventario")
+
+.insert(registros);
+
+if(insertarError){
+
+    console.error(insertarError);
+
+    alert("Error guardando el inventario.");
+
+    return;
+
+}
+
+window.inventario = registros;
+
+window.renderInventario();
+
+alert("Inventario cargado correctamente.");
 // ========================================
 // RENDER INVENTARIO
 // ========================================
